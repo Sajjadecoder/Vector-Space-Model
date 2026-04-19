@@ -9,15 +9,16 @@ This project implements a complete **Vector Space Model (VSM)** for information 
 ## System Pipeline
 
 ```
-Raw Documents  ──Preprocess──▶  Processed Docs
-                 (lowercase,       (vocabulary)
+Raw Documents  ──Preprocess──▶  Generated Global Vocabulary List
+                 (lowercase,       (vocabulary.json)
                  tokenize,
-                 stopwords,
-                 lemmatize)
+                 stopwords,         |
+                 lemmatize)         |
                                     │
                                     ▼
                             Build Indexes
                             ├─ Inverted Index
+                            ├─ Positional Index
                             ├─ TF
                             ├─ IDF
                             └─ TF-IDF Vectors
@@ -28,9 +29,9 @@ Raw Documents  ──Preprocess──▶  Processed Docs
                             │   (in memory)    │
                             └────────┬─────────┘
                                      │
-    User Query──Preprocess──┐       │
-    (same pipeline)        │       │
-                           ▼       ▼
+    User Query──Preprocess──┐        │
+    (same pipeline)         │        │
+                            ▼        ▼
                     ┌─────────────────────────┐
                     │ Query Processing       │
                     ├─ Query Vector (TF-IDF) │
@@ -195,57 +196,7 @@ python src/query_processor.py --alpha 0.01 --topk 5
 
 ---
 
-## Key Algorithms
-
-### Cosine Similarity
-```
-similarity(q, d) = (∑ q_i × d_i) / (√∑ q_i² × √∑ d_i²)
-
-Where:
-  q = query vector (TF-IDF weights)
-  d = document vector (TF-IDF weights)
-  Result range: [0, 1]
-```
-
-### TF-IDF Weight
-```
-tfidf(t, d) = tf(t, d) × idf(t)
-
-Where:
-  tf(t, d) = count of term t in document d
-  idf(t) = log(N / df(t))
-  N = total number of documents
-  df(t) = number of documents containing term t
-```
-
 ---
-
-## Performance Characteristics
-
-- **Corpus Size:** 50 documents
-- **Vocabulary Size:** ~5,000+ unique terms (after preprocessing)
-- **Query Processing Time:** < 100ms per query
-- **Memory Usage:** ~50MB (indexes loaded in memory)
-
----
-
-## Example Output
-
-```
-============================================================
-  Query : machine learning applications
-============================================================
-  Rank   Score      Doc ID   Filename
-  ─────────────────────────────────────────────────────────
-  1      0.847521   5        speech_5.txt
-  2      0.756234   12       speech_12.txt
-  3      0.693412   18       speech_18.txt
-  4      0.614523   3        speech_3.txt
-  5      0.587234   28       speech_28.txt
-```
-
----
-
 ## Dependencies
 
 - **tkinter:** GUI framework (built-in with Python)
