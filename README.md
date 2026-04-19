@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project implements a complete **Vector Space Model (VSM)** for information retrieval using TF-IDF ranking and cosine similarity. It provides both command-line and GUI interfaces for querying a corpus of documents (speeches). The system preprocesses documents, builds search indexes, and retrieves relevant documents ranked by similarity to user queries.
+This assignment implements a complete **Vector Space Model (VSM)** for information retrieval using TF-IDF ranking and cosine similarity. It provides both command-line and GUI interfaces for querying a corpus of documents (Trump speeches). The system preprocesses documents, builds search indexes, and retrieves relevant documents ranked by similarity to user queries.
 
 ---
 
@@ -191,7 +191,6 @@ python src/query_processor.py --alpha 0.01 --topk 5
 | Parameter | Default | Description |
 |-----------|---------|-------------|
 | `alpha` | 0.005 | Similarity threshold for result filtering |
-| `topk` | 10 | Maximum number of results to display |
 | `queries` | None | Path to batch query file |
 
 ---
