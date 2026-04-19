@@ -18,8 +18,9 @@ def compute_tf():
 
             tf[doc_id][term] = len(positional_index[term][doc_id])
 
-    # save
+    sorted_tf = dict(sorted(tf.items(), key=lambda x: int(x[0])))
+
     with open(output_file, "w", encoding="utf-8") as f:
-        json.dump(tf, f, indent=4)
+        json.dump(sorted_tf, f, indent=4)
 
 compute_tf()
